@@ -49,6 +49,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         postorder(root.right);
         System.out.print(root.element + " ");
     }
+
     @Override
     public void preorder(TreeNode<E> root) {
         if (root == null) return;
@@ -62,10 +63,41 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return size;
     }
 
-    @Override
-    public boolean delete(E e) {
-        return true;
+    public void delete(E key) {
+      root =  deleteElement(root, key);
     }
+
+    @Override
+    public TreeNode<E> deleteElement(TreeNode<E> root, E key) {
+        if (root == null) {
+            return null;
+        }
+        if (key.compareTo(root.element) < 0) {
+            root.left = deleteElement(root.left, key);
+        } else if (key.compareTo(root.element) > 0) {
+            root.right = deleteElement(root.right, key);
+        } else {
+            // nút hiện tại là nút cần xóa
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+            root.element = minValue(root.right);
+            root.right = deleteElement(root.right, root.element);
+        }
+        return root;
+    }
+
+    E minValue(TreeNode<E> root) {
+        E minVal = root.element;
+        while (root.left != null) {
+            minVal = root.left.element;
+            root = root.left;
+        }
+        return minVal;
+    }
+
 
     @Override
     public boolean search(E e) {
@@ -86,6 +118,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     public void postorder() {
         postorder(root);
     }
+
     @Override
     public void preorder() {
         preorder(root);

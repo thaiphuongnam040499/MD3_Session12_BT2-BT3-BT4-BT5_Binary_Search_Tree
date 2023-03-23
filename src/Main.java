@@ -15,5 +15,7 @@ public class Main {
         tree.preorder();
         System.out.println("search (sorted): ");
         System.out.println(tree.search(27));
+        tree.delete(14);
+        tree.preorder();
     }
 }
