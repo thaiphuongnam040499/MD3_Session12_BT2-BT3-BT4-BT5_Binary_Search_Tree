@@ -11,6 +11,9 @@ public class Main {
         System.out.println("postorder (sorted): ");
         tree.postorder();
         System.out.println("The number of nodes is: " + tree.getSize());
-
+        System.out.println("preorder (sorted): ");
+        tree.preorder();
+        System.out.println("search (sorted): ");
+        System.out.println(tree.search(27));
     }
 }

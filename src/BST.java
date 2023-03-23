@@ -6,7 +6,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 
     public BST() {
     }
-    public BST(E[] object){
+
+    public BST(E[] object) {
         for (int i = 0; i < object.length; i++) {
             insert(object[i]);
         }
@@ -42,11 +43,18 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return true;
     }
 
-    public void postorder(TreeNode<E> root){
-        if (root==null) return;
+    public void postorder(TreeNode<E> root) {
+        if (root == null) return;
         postorder(root.left);
         postorder(root.right);
         System.out.print(root.element + " ");
+    }
+    @Override
+    public void preorder(TreeNode<E> root) {
+        if (root == null) return;
+        System.out.print(root.element + " ");
+        postorder(root.left);
+        postorder(root.right);
     }
 
     @Override
@@ -55,7 +63,31 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
+    public boolean delete(E e) {
+        return true;
+    }
+
+    @Override
+    public boolean search(E e) {
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0) {
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                current = current.right;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void postorder() {
         postorder(root);
+    }
+    @Override
+    public void preorder() {
+        preorder(root);
     }
 }
